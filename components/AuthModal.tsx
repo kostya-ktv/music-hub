@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "./Modal";
 import {
   useSessionContext,
@@ -8,20 +8,30 @@ import {
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import useAuthModal from "@/hooks/useAuthModal";
 
-interface Props {}
-
-export const AuthModal = (props: Props) => {
+export const AuthModal = () => {
   const supabasClient = useSupabaseClient();
   const router = useRouter();
   const { session } = useSessionContext();
+  const { isOpen, onClose } = useAuthModal();
 
+  const onChange = (open: boolean) => {
+    if (!open) onClose();
+  };
+
+  useEffect(() => {
+    if (session) {
+      router.refresh();
+      onClose();
+    }
+  }, [session, router, onClose]);
   return (
     <Modal
       title="Welcome back"
       description="Login to your acc"
-      onChange={() => {}}
-      isOpen
+      onChange={onChange}
+      isOpen={isOpen}
     >
       <Auth
         supabaseClient={supabasClient}
