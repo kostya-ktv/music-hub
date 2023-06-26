@@ -1,7 +1,7 @@
 import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header/Header";
 import ListItem from "@/components/ListItem/ListItem";
-import PageContent from "@/components/PageContent/PageContent";
+import PageContent from "@/app/(site)/components/PageContent/PageContent";
 export const revalidate = 0;
 
 export default async function Home() {
