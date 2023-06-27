@@ -3,11 +3,11 @@ import { usePathname } from "next/navigation";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { useMemo } from "react";
-import Box from "./Box";
+import Box from "../Box";
 import SidebarItem from "./SidebarItem";
-import Library from "./Library/Library";
+import Library from "../Library/Library";
 import { Song } from "@/types";
-import usePlayer from "./Player/hooks/usePlayer";
+import usePlayer from "../Player/hooks/usePlayer";
 import { twMerge } from "tailwind-merge";
 
 interface Props {
@@ -47,13 +47,13 @@ const Sidebar: React.FC<Props> = ({ children, songs }) => {
     >
       <div
         className="hidden 
-      md:flex
-      flex-col
-      gap-y-2
-      bg-black
-      h-full
-      w-[300px]
-      p-2
+          md:flex
+          flex-col
+          gap-y-2
+          bg-black
+          h-full
+          w-[300px]
+          p-2
       "
       >
         <Box>
@@ -71,12 +71,8 @@ const Sidebar: React.FC<Props> = ({ children, songs }) => {
             ))}
           </div>
         </Box>
-        <Box
-          className="
-        overflow-y-auto h-full"
-        >
-          <Library songs={songs} />
-        </Box>
+
+        <Library songs={songs} />
       </div>
       <main
         className="

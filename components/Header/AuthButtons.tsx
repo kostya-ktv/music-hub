@@ -3,19 +3,21 @@ import useAuthModal from "@/hooks/useAuthModal";
 import Button from "../Button";
 import { useUser } from "@/hooks/useUser";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-
 import { useRouter } from "next/navigation";
 import { FaUserAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import usePlayer from "../Player/hooks/usePlayer";
 
 const AuthButtons = () => {
   const authModal = useAuthModal();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
   const router = useRouter();
+  const player = usePlayer();
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
+    player.reset();
     router.refresh();
     if (error) toast.error(error.message);
     else toast.success("Logget out");
